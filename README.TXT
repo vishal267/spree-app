@@ -81,14 +81,29 @@ For Admin password
 printf $(kubectl get secret --namespace default cicd-jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 --decode);echo
 
 
+#Helm chart 
+
+helm create spree-app1
+Define the ingress resources on values.yaml 
+
+helm install RELEASE-NAME spree-app1/
+
 
 ##Build and DEPLOY the code
 
 Build Phase 
 Build docker image and push to docker hub
-docker build -t username/app1 .
+docker build -t username/app1:0.2.0 .
 docker login
 
-docker push username/app1:latest
+docker push username/app1:0.2..0 
+
+#Deploy Phase 
+
+Edit the values.yaml or used sed command for same 
+
+helm upgrade RELEASE-NAME spree-app1
+
+
 
 
